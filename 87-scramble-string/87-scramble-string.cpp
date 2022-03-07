@@ -3,6 +3,12 @@ public:
     map<string,bool> mp;
     bool isScramble(string s1, string s2) {
         int n=s1.length();
+        string s3=s1;
+        string s4=s2;
+        sort(s3.begin(),s3.end());
+        sort(s4.begin(),s4.end());
+        if(s3!=s4)
+            return false;
         if(s1.length()==0 || s2.length()==0)
             return false;
         if(s1==s2)
