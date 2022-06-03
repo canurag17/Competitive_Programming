@@ -31,7 +31,7 @@ int main()
         cin>>a[i];
         sort(a.begin(),a.end());
         int i=1,j=2;
-        while(i<n && j<n)
+        while(i<n-1 && j<n)
         {
             if((a[i]>=a[i-1] && a[i]<=a[i+1]))
             {
