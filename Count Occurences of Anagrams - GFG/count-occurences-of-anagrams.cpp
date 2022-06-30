@@ -10,39 +10,38 @@ class Solution{
 public:
 	int search(string pat, string txt) {
 	    int k=pat.length();
-	    unordered_map<char,int> mp;
+	    int i=0,j=0,ans=0;
+	    map<char,int> mp;
 	    for(int i=0;i<k;i++)
-	        mp[pat[i]]++;
-        int i=0,j=0;
-        int ctr=mp.size();
-        int ans=0;
-        while(j<txt.length())
-        {
-            if(mp.find(txt[j])!=mp.end())
-            {
-                mp[txt[j]]--;
-                if(mp[txt[j]]==0)
-                ctr--;
-            }
-            if(j-i+1<k)
-            {
-                j++;
-            }
-            else if(j-i+1==k)
-            {
-                if(ctr==0)
-                ans++;
-                if(mp.find(txt[i])!=mp.end())
-                {
-                    mp[txt[i]]++;
-                    if(mp[txt[i]]==1)
-                    ctr++;
-                }
-                i++;
-                j++;
-            }
-        }
-        return ans;
+	    mp[pat[i]]++;
+	    int ctr=mp.size();
+	    while(j<txt.length())
+	    {
+	        if(mp.find(txt[j])!=mp.end())
+	        {
+	            mp[txt[j]]--;
+	            if(mp[txt[j]]==0)
+	            ctr--;
+	        }
+	        if(j-i+1<k)
+	            j++;
+	        else if(j-i+1==k)
+	        {
+	            if(ctr==0)
+	            {
+	                ans++;
+	            }
+	            if(mp.find(txt[i])!=mp.end())
+	            {
+	                mp[txt[i]]++;
+	                if(mp[txt[i]]==1)
+	                ctr++;
+	            }
+	            j++;
+	            i++;
+	        }
+	    }
+	    return ans;
 	}
 
 };
