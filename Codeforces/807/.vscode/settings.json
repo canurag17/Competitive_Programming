@@ -1,0 +1,15 @@
+{
+  "files.associations": {
+    "*.tcc": "cpp",
+    "bitset": "cpp",
+    "complex": "cpp",
+    "fstream": "cpp",
+    "iomanip": "cpp",
+    "iosfwd": "cpp",
+    "iostream": "cpp",
+    "istream": "cpp",
+    "ostream": "cpp",
+    "sstream": "cpp",
+    "streambuf": "cpp"
+  }
+}
