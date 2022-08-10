@@ -6,7 +6,7 @@ public:
             jumpIndex[i]=i+nums[i];
         int j=0;
         int maxIndex=nums.size()-1;
-        while(j<maxIndex && maxIndex>0)
+        while(j<maxIndex)
         {
             if(jumpIndex[j]>=maxIndex)
             {
