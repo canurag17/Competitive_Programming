@@ -25,34 +25,33 @@ void solve()
     cin>>n;
     string t;
     cin>>t;
-    set<ll> s;
-    set<ll> l;
-    forn(i,t.length())
+    ll cost[n+1];
+    for(int i=n;i>=1;i--)
     {
-        if(t[i]=='0')
-        {
-            s.insert(i+1);
-            l.insert(i+1);
-        }
-    }
-    ll cost=0;
-    while(s.size()>0 && l.size()>0)
-    {
-        int it=*l.begin();
-        int m=1;
-        while(s.size()>0 && l.size()>0 && (s.count(it*m) || l.count(it*m)))
-        {
-            if(s.count(it*m))
+        if(t[i-1]=='0')
+        { 
+            for(int j=i;j<=n;j+=i)
             {
-                s.erase(it*m);
-                cost+=it;
+                if(t[j-1]=='0')
+                {
+                    cost[j]=i;
+                }
+                else
+                    break;
             }
-            m++;
+            
         }
-        l.erase(l.begin());
     }
-    cout<<cost<<"\n";
-
+    ll ans=0;
+    forab(i,1,n)
+    {
+        if(t[i-1]=='0')
+        {
+            ans+=cost[i];
+        }
+    }
+    cout<<ans<<"\n";
+    
 }
 int main()
 {
