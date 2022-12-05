@@ -26,18 +26,11 @@ void solve()
     ll a[n];
     forn(i,n)
     cin>>a[i];
-    sort(a,a+n);
-    ll w3=a[n-1];
-    ll ans=0;
-    forn(i,n-1)
-    {
-        ans=max(ans,a[n-1]+a[i+1]-2*a[i]);
-    }
-    forn(i,n-1)
-    {
-        ans=max(ans,2*a[i+1]-a[i]-a[0]);
-    }
-    cout<<ans<<"\n";
+    ll x=accumulate(a,a+n,0);
+    if(x%2)
+    cout<<"Alice"<<"\n";
+    else
+    cout<<"Bob"<<"\n";
 }
 int main()
 {
