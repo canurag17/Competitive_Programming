@@ -19,20 +19,60 @@ using namespace std;
 #define NO cout<<"NO"<<"\n"
 #define YES cout<<"YES"<<"\n"
 #define MOD 1000000007
+ll power(ll n)
+{
+    ll x=0;
+    while(n>1)
+    {
+        n>>=1;
+        x++;
+    }
+    return x;
+}
 void solve()
 {
-    ll n;
+    int n;
     cin>>n;
-    ll a[n];
-    forn(i,n)
-    cin>>a[i];
-    ll x=*min_element(a,a+n);
-    if(a[0]==x)
+    ll a[n+1];
+    //ll p=1;
+    //int indp=1;
+    ll z=1<<30;
+    ll x=0;
+    ll ans=0;
+    forab(i,1,n)
     {
-        cout<<"Bob"<<"\n";
+        cin>>a[i];
+        ll y=__gcd(a[i],z);
+        ll k=power(y);
+        x+=k;
+        //cout<<x<<" ";
     }
+    if(x>=n)
+    {
+        cout<<0<<"\n";
+        return;
+    }
+    priority_queue<ll> pq;
+    for(ll i=n;i>=1;i--)
+    {
+        ll y=__gcd(i,z);
+        ll k=power(y);
+        if(k>0)
+        pq.push(k);
+    }
+    while(!pq.empty() && x<n)
+    {
+        ll f=pq.top();
+        pq.pop();
+        x+=f;
+        ans++;
+    }
+    if(x<n)
+    cout<<-1<<"\n";
     else
-        cout<<"Alice"<<"\n";
+    cout<<ans<<"\n";
+
+
 }
 int main()
 {

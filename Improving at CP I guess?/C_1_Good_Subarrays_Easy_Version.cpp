@@ -23,16 +23,11 @@ void solve()
 {
     ll n;
     cin>>n;
-    ll a[n];
-    forn(i,n)
+    ll a[n+1];
+    forab(i,1,n)
     cin>>a[i];
-    ll x=*min_element(a,a+n);
-    if(a[0]==x)
-    {
-        cout<<"Bob"<<"\n";
-    }
-    else
-        cout<<"Alice"<<"\n";
+    
+
 }
 int main()
 {

@@ -21,19 +21,37 @@ using namespace std;
 #define MOD 1000000007
 void solve()
 {
-    ll n;
+    int n;
     cin>>n;
-    ll a[n];
-    forn(i,n)
+    int a[n+1],ans[n+1]={0};
+    vector<pii> diff;
+    forab(i,1,n)
     cin>>a[i];
-    ll x=*min_element(a,a+n);
-    if(a[0]==x)
+    int j=n;
+    int i=1;
+    forab(i,2,n)
     {
-        cout<<"Bob"<<"\n";
+        if(a[i]<a[i-1])
+        {
+            diff.pb({a[i-1]-a[i],i});
+        }
     }
-    else
-        cout<<"Alice"<<"\n";
+    sort(diff.begin(),diff.end());
+    reverse(diff.begin(),diff.end());
+    //int j=n;
+    for(auto it: diff)
+    {
+        ans[j--]=it.second;
+    }
+    while(j>=1)
+    {
+        ans[j--]=1;
+    }
+    forab(i,1,n)
+    cout<<ans[i]<<" ";
+    cout<<"\n";
 }
+
 int main()
 {
     ios_base::sync_with_stdio(false);
