@@ -26,7 +26,30 @@ void solve()
     ll a[n+1];
     forab(i,1,n)
     cin>>a[i];
-    
+    ll i=1,j=1;
+    ll sz=0;
+    ll ans=0;
+    ll curr=j;
+    while(i<=n && j<=n)
+    {
+        if(a[j]>=curr)
+        {
+            j++;
+            curr++;
+        }
+        else
+        {
+            ans+=(j-i);
+            i++;
+            curr--;
+        }
+    }
+    while(i<=j)
+    {
+        ans+=(j-i);
+        i++;
+    }
+    cout<<ans<<"\n";
 
 }
 int main()
