@@ -19,76 +19,93 @@ using namespace std;
 #define NO cout<<"NO"<<"\n"
 #define YES cout<<"YES"<<"\n"
 #define MOD 1000000007
-int dx[4]={-1,0,+1,0};
-int dy[4]={0,1,0,-1};
-void dfs(int x,int y, int m,vector<string> &s)
+int b1,b2=0;
+int vis[2][200001];
+int m;
+void dfs(int x,int y,vector<string> &s)
 {
-    s[x][y]='W';
-    for(int i=0;i<4;i++)
+    vis[x][y]=1;
+    b2++;
+    if(x==0)
     {
-        int newx=x+dx[i];
-        int newy=y+dy[i];
-        if(newx>=0 && newx<2 && newy>=0 && newy<m && s[newx][newy]!='W')
+        if(s[1][y]=='B' && vis[1][y]!=1)
         {
-            dfs(newx,newy,m,s);
-            return;
+            dfs(1,y,s);
+        }
+        else
+        {
+            if(y+1<m && vis[x][y+1]!=1)
+            dfs(x,y+1,s);
         }
     }
-    return;
+    else if(x==1)
+    {
+        if(s[0][y]=='B' &&  vis[0][y]!=1)
+        {
+            dfs(0,y,s);
+        }
+        else
+        {
+            if(y+1<m && vis[x][y+1]!=1)
+            dfs(x,y+1,s);
+        }
+    }
 }
 void solve()
 {
-    ll m;
     cin>>m;
     vector<string> s(2);
     cin>>s[0];
     cin>>s[1];
-    int c=0;
-    for(int i=0;i<m;i++)
+    b1=0,b2=0;
+    int fl=1;
+    forn(i,2)
     {
-        if(s[i][0]=='B' || s[i][1]=='B')
-        {
-            c++;
-            break;
-        }
-    }
-    if(c==0)
-    {
-        NO;
-        return;
-    }
-    for(int i=0;i<2;i++)
-    {
-        for(int j=0;j<m;j++)
+        forn(j,m)
         {
             if(s[i][j]=='B')
-                dfs(i,j,m,s);
-            break;
+            b1++;
         }
     }
-    for(int i=0;i<2;i++)
+    forn(i,m)
     {
-        for(int j=0;j<m;j++)
+        if(s[0][i]=='B' && s[1][i]=='B')
         {
-            if(s[i][j]=='B')
-                dfs(i,j,m,s);
-            break;
-        }
-    }
-    for(int i=0;i<2;i++)
-    {
-        for(int j=0;j<m;j++)
-        {
-            if(s[i][j]=='B')
+            dfs(0,i,s);
+            if(b1==b2)
             {
-                NO;
+                YES;
+                return;
+            }
+            b2=0;
+            memset(vis,0,sizeof(vis));
+            dfs(1,i,s);
+            if(b1==b2)
+            {
+                YES;
+                return;
+            }
+        }
+        else if(s[0][i]=='B')
+        {
+            dfs(0,i,s);
+            if(b1==b2)
+            {
+                YES;
+                return;
+            }
+        }
+        else if(s[1][i]=='B')
+        {
+            dfs(1,i,s);
+            if(b1==b2)
+            {
+                YES;
                 return;
             }
         }
     }
-
-    //cout<<s[0]<<"\n"<<s[1];
-    YES;
+    NO;
 
 }
 int main()
