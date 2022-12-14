@@ -34,7 +34,7 @@ void dfs(int x,int y,vector<string> &s)
         }
         else
         {
-            if(y+1<m && vis[x][y+1]!=1)
+            if(y+1<m && s[0][y+1]=='B')
             dfs(x,y+1,s);
         }
     }
@@ -46,13 +46,14 @@ void dfs(int x,int y,vector<string> &s)
         }
         else
         {
-            if(y+1<m && vis[x][y+1]!=1)
+            if(y+1<m && s[1][y+1]=='B')
             dfs(x,y+1,s);
         }
     }
 }
 void solve()
 {
+    memset(vis,0,sizeof(vis));
     cin>>m;
     vector<string> s(2);
     cin>>s[0];
@@ -67,44 +68,42 @@ void solve()
             b1++;
         }
     }
-    forn(i,m)
+    if(s[0][0]=='B' && s[1][0]=='B')
     {
-        if(s[0][i]=='B' && s[1][i]=='B')
+        dfs(0,0,s);
+        if(b1==b2)
         {
-            dfs(0,i,s);
-            if(b1==b2)
-            {
-                YES;
-                return;
-            }
-            b2=0;
-            memset(vis,0,sizeof(vis));
-            dfs(1,i,s);
-            if(b1==b2)
-            {
-                YES;
-                return;
-            }
+            YES;
+            return;
         }
-        else if(s[0][i]=='B')
+        b2=0;
+        memset(vis,0,sizeof(vis));
+        dfs(1,0,s);
+        if(b1==b2)
         {
-            dfs(0,i,s);
-            if(b1==b2)
-            {
-                YES;
-                return;
-            }
-        }
-        else if(s[1][i]=='B')
-        {
-            dfs(1,i,s);
-            if(b1==b2)
-            {
-                YES;
-                return;
-            }
+            YES;
+            return;
         }
     }
+    else if(s[0][0]=='B')
+    {
+        dfs(0,0,s);
+        if(b1==b2)
+        {
+            YES;
+            return;
+        }
+    }
+    else if(s[1][0]=='B')
+    {
+        dfs(1,0,s);
+        if(b1==b2)
+        {
+            YES;
+            return;
+        }
+    }
+
     NO;
 
 }
