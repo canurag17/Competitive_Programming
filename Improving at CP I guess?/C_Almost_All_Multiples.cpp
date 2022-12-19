@@ -22,48 +22,69 @@ using namespace std;
 #define read(a) cin>>a
 #define wrt(a) cout<<a<<"\n"
 #define wrts(a) cout<<a<<" "
-#define MOD 1000000007 
+#define MOD 1000000007
 void solve()
 {
-    ll n,m;
-    cin>>n>>m;
-    ll k=1;
-    ll ctr5=0,ctr2=0,n2=n;
-    while(n>0 && n%2==0)
+    ll n,x;
+    cin>>n>>x;
+    ll a[n+1]={0};
+    a[1]=x;
+    a[n]=1;
+    set<ll> s;
+    if(n==2)
     {
-        n/=2;
-        ctr2++;
+        cout<<a[1]<<" "<<a[n]<<"\n";
+        return;
     }
-    while(n>0 && n%5==0)
+    if(n%x!=0)
     {
-        n/=5;
-        ctr5++;
+        cout<<-1<<"\n";
+        return;
     }
-    while(ctr5<ctr2 && k*5<=m)
+    s.insert(1);
+    s.insert(x);
+    for(int i=n-1;i>n/2;i--)
     {
-        ctr5++;
-        k*=5;
+        if(a[i]==0)
+        s.insert(i), a[i]=i;
     }
-    while(ctr2<ctr5 && k*2<=m)
+    ll ind=-999;
+    forab(i,2,n/2)
     {
-        ctr2++;
-        k*=2;
+        if(a[i]==0)
+        {
+            if(s.count(i))
+            {
+                a[i]=n;
+                ind=i;
+            }
+            else
+            {
+                a[i]=i;
+            }
+        }
     }
-    ll ans=1;
-    while(k*10<=m)
+    ll z,ind2;
+    if(ind>0)
     {
-        k*=10;
+        z=2*ind;
+        ind2=ind;
     }
-    k*=(m/k);
-    ans=n2*k;
-    if(k==1)
+    while(ind>0 && z<=n/2)
     {
-        ans=n2*m;
+        if(n%z==0 && a[z]%ind==0)
+        {
+            swap(a[ind],a[z]);
+            ind=z;
+        }
+        z+=ind2;
     }
-    cout<<ans<<"\n";
+    forab(i,1,n)
+    {
+        cout<<a[i]<<" ";
+    }
+    cout<<"\n";
 
-
-    
 }
 int main()
 {

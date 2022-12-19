@@ -22,48 +22,33 @@ using namespace std;
 #define read(a) cin>>a
 #define wrt(a) cout<<a<<"\n"
 #define wrts(a) cout<<a<<" "
-#define MOD 1000000007 
+#define MOD 1000000007
 void solve()
 {
-    ll n,m;
-    cin>>n>>m;
-    ll k=1;
-    ll ctr5=0,ctr2=0,n2=n;
-    while(n>0 && n%2==0)
+    ll n;
+    cin>>n;
+    if(n%2)
     {
-        n/=2;
-        ctr2++;
+        forn(i,n)
+        cout<<1<<" ";
+        cout<<"\n";
+        return;
     }
-    while(n>0 && n%5==0)
+    if(n==2)
     {
-        n/=5;
-        ctr5++;
+        cout<<1<<" "<<3<<"\n";
+        return;
     }
-    while(ctr5<ctr2 && k*5<=m)
+    cout<<2<<" "<<4<<" ";
+    ll m=n*6-6;
+    forab(i,1,n-4)
     {
-        ctr5++;
-        k*=5;
+        cout<<1<<" ";
+        m--;
     }
-    while(ctr2<ctr5 && k*2<=m)
-    {
-        ctr2++;
-        k*=2;
-    }
-    ll ans=1;
-    while(k*10<=m)
-    {
-        k*=10;
-    }
-    k*=(m/k);
-    ans=n2*k;
-    if(k==1)
-    {
-        ans=n2*m;
-    }
-    cout<<ans<<"\n";
+    m/=2;
+    cout<<m<<" "<<m<<"\n";
 
-
-    
 }
 int main()
 {

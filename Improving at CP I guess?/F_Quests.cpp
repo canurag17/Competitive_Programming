@@ -17,53 +17,44 @@ using namespace std;
 #define revs(n) for(int i=n-1;i>=0;i--)
 #define pql priority_queue<ll>
 #define pqd priority_queue<ll,vector<ll>,greater<ll>>
-#define NO cout<<"NO"<<"\n"
-#define YES cout<<"YES"<<"\n"
+#define NO cout<<"Impossible"<<"\n"
+#define YES cout<<"Infinity"<<"\n"
 #define read(a) cin>>a
 #define wrt(a) cout<<a<<"\n"
 #define wrts(a) cout<<a<<" "
-#define MOD 1000000007 
+#define MOD 1000000007
 void solve()
 {
-    ll n,m;
-    cin>>n>>m;
-    ll k=1;
-    ll ctr5=0,ctr2=0,n2=n;
-    while(n>0 && n%2==0)
+    ll n,c,d;
+    cin>>n>>c>>d;
+    ll a[n];
+    forn(i,n)
     {
-        n/=2;
-        ctr2++;
+        cin>>a[i];
     }
-    while(n>0 && n%5==0)
+    sort(a,a+n,greater<ll>());
+    ll l=0,r=d+2,mid;
+    while(l<r)
     {
-        n/=5;
-        ctr5++;
-    }
-    while(ctr5<ctr2 && k*5<=m)
-    {
-        ctr5++;
-        k*=5;
-    }
-    while(ctr2<ctr5 && k*2<=m)
-    {
-        ctr2++;
-        k*=2;
-    }
-    ll ans=1;
-    while(k*10<=m)
-    {
-        k*=10;
-    }
-    k*=(m/k);
-    ans=n2*k;
-    if(k==1)
-    {
-        ans=n2*m;
-    }
-    cout<<ans<<"\n";
+        mid=l+(r-l+1)/2;
+        ll tc=0;
+        forn(i,d)
+        {
+            if(i%mid<n) tc+=a[i%mid];  //We go to the ith index after mid-1 days of not taking it, 
+        }
+        if(tc>=c)
+        {
+            l=mid;
+        }
+        else
+        {
+            r=mid-1;
+        }
 
-
-    
+    }
+    if(l==0) NO;
+    else if(l==d+2) YES;
+    else cout<<l-1<<"\n";
 }
 int main()
 {
