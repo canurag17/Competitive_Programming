@@ -23,41 +23,28 @@ using namespace std;
 #define wrt(a) cout<<a<<"\n"
 #define wrts(a) cout<<a<<" "
 #define MOD 1000000007
+ll calc(ll a[],ll i, ll h, ll g, ll b,ll n)
+{
+    if(i==n) return 0;
+    if(a[i]<h) return calc(a,i+1,h+a[i]/2,g,b,n)+1;
+    ll ans1=(g>0)?(calc(a,i,h*2,g-1,b,n)): 0;
+    ll ans2=(b>0)?(calc(a,i,h*3,g,b-1,n)): 0;
+    return max(ans1,ans2);
+}
 void solve()
 {
-    ll n;
-    cin>>n;
-    vector<ll> a(n);
+    ll n,h;
+    cin>>n>>h;
+    ll a[n];
     forn(i,n)
     {
         cin>>a[i];
     }
-    sort(all(a),greater<ll>());
-    int ans=0;
-    //ll curr=0;
-    forab(k,1,n)
-    {
-        ll j=0;
-        ll ctr=1;
-        ll n2=n;
-        while(j<n2 && ctr<=k)
-        {
-            if(a[j]<=k-ctr+1)
-            {
-                ctr++;
-                j++;
-                n2--;
-            }
-            else
-            {
-                j++;
-            }
-        }
-        if(ctr==k+1)
-        ans=max(ans,k);
-    }
-    cout<<ans<<"\n";
-
+    sort(a,a+n);
+    int j=0;
+    ll g=2,b=1;
+    ll ans=0;
+    cout<<calc(a,0,h,g,b,n)<<"\n";
 }
 int main()
 {

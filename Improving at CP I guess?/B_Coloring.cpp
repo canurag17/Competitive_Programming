@@ -25,39 +25,43 @@ using namespace std;
 #define MOD 1000000007
 void solve()
 {
-    ll n;
-    cin>>n;
-    vector<ll> a(n);
-    forn(i,n)
+    ll n,m,k;
+    cin>>n>>m>>k;
+    ll a[m];
+    forn(i,m)
     {
         cin>>a[i];
     }
-    sort(all(a),greater<ll>());
-    int ans=0;
-    //ll curr=0;
-    forab(k,1,n)
+    if(k==1)
     {
-        ll j=0;
-        ll ctr=1;
-        ll n2=n;
-        while(j<n2 && ctr<=k)
-        {
-            if(a[j]<=k-ctr+1)
-            {
-                ctr++;
-                j++;
-                n2--;
-            }
-            else
-            {
-                j++;
-            }
-        }
-        if(ctr==k+1)
-        ans=max(ans,k);
+        YES;
+        return;
     }
-    cout<<ans<<"\n";
-
+    if(k>m)
+    {
+        NO;
+        return;
+    }
+    ll mx=n/k+1;
+    ll r=n%k;
+    forn(i,m)
+    {
+        if(mx<a[i])
+        {
+            NO;
+            return;
+        }
+        else if(mx==a[i])
+        {
+            r--;
+        }
+        if(r<0)
+        {
+            NO;
+            return;
+        }
+    }
+    YES;
 }
 int main()
 {
