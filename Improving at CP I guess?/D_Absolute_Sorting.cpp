@@ -17,7 +17,7 @@ using namespace std;
 #define revs(n) for(int i=n-1;i>=0;i--)
 #define pql priority_queue<ll>
 #define pqd priority_queue<pll,vector<pll>,greater<pll>>
-#define NO cout<<"NO"<<"\n"
+#define NO cout<<-1<<"\n"
 #define YES cout<<"YES"<<"\n"
 #define read(a) cin>>a
 #define wrt(a) cout<<a<<"\n"
@@ -25,46 +25,53 @@ using namespace std;
 #define MOD 1000000007
 void solve()
 {
-    string x;
-    cin>>x;
-    ll k;
-    cin>>k;
-    if(k==0)
+    ll n;
+    cin>>n;
+    vector<ll> a(n);
+    ll mn=INT_MAX;
+    ll mx=INT_MIN;
+    forn(i,n)
     {
-        cout<<x<<"\n";
+        cin>>a[i];
+    }
+    if(is_sorted(all(a)))
+    {
+        cout<<0<<"\n";
         return;
     }
-    vll pos(10);
-    forn(i,x.length())
-    pos[x[i]-'0'].pb(i);
-    forn(i,10)
+    if(is_sorted(a.rbegin(),a.rend()))
     {
-        reverse(all(pos[i]));
-        // storing all indexex of particular digits from 0-9 in vector and sorting in desc as we pop from behind
+        cout<<a[0]<<"\n";
+        return;
     }
-    string ans;
-    int lst=0,len=x.length()-k;
-    // our answer is always some suffix of the original string x
-    forn(i,len)
+    ll x=0;
+    forab(i,0,n-2)
     {
-        forab(d,(i==0),9)
+        if(a[i]>a[i+1])
         {
-            while(!pos[d].empty() && pos[d].back()<lst)
+            if((a[i]+a[i+1]+1)/2>=x)
             {
-                pos[d].pop_back();
+                x=(a[i]+a[i+1]+1)/2;
             }
-            if(!pos[d].empty() && pos[d].back()-lst<=k)
+        }
+        else
+        {
+            if(abs(a[i]-x)>abs(a[i+1]-x))
             {
-                ans.pb(d+48);
-                k-=pos[d].back()-lst;
-                lst=pos[d].back()+1;
-                break;
+                NO;
+                return;
             }
         }
     }
-    cout<<ans<<"\n";
-
-
+    forab(i,0,n-2)
+    {
+        if(abs(a[i]-x)>abs(a[i+1]-x))
+        {
+            NO;
+            return;
+        }
+    }
+    cout<<x<<"\n";
 }
 int main()
 {

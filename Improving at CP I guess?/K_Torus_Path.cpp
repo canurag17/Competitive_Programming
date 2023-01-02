@@ -25,54 +25,34 @@ using namespace std;
 #define MOD 1000000007
 void solve()
 {
-    string x;
-    cin>>x;
-    ll k;
-    cin>>k;
-    if(k==0)
+    ll n;
+    cin>>n;
+    ll a[n][n];
+    ll score=0;
+    forn(i,n)
     {
-        cout<<x<<"\n";
-        return;
-    }
-    vll pos(10);
-    forn(i,x.length())
-    pos[x[i]-'0'].pb(i);
-    forn(i,10)
-    {
-        reverse(all(pos[i]));
-        // storing all indexex of particular digits from 0-9 in vector and sorting in desc as we pop from behind
-    }
-    string ans;
-    int lst=0,len=x.length()-k;
-    // our answer is always some suffix of the original string x
-    forn(i,len)
-    {
-        forab(d,(i==0),9)
+        forn(j,n)
         {
-            while(!pos[d].empty() && pos[d].back()<lst)
-            {
-                pos[d].pop_back();
-            }
-            if(!pos[d].empty() && pos[d].back()-lst<=k)
-            {
-                ans.pb(d+48);
-                k-=pos[d].back()-lst;
-                lst=pos[d].back()+1;
-                break;
-            }
+            cin>>a[i][j];
+            score+=a[i][j];
         }
+    }
+    ll ans=0;
+    ll j=0;
+    for(int i=n-1;i>=0;i--)
+    {
+        ans=max(ans,score-a[j++][i]);
     }
     cout<<ans<<"\n";
 
-
+   
 }
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t;
-    cin>>t;
+    int t=1;
     while(t--)
     {
         solve();
