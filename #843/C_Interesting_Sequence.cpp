@@ -23,10 +23,68 @@ using namespace std;
 #define wrt(a) cout<<a<<"\n"
 #define wrts(a) cout<<a<<" "
 #define MOD 1000000007
+ll msbpos(ll n)
+{
+    ll ans=-1;
+    while(n)
+    {
+        n=n>>1;
+        ans++;
+    }
+    return ans;
+}
+ll band(ll l, ll r)
+{
+    ll ans=0;
+    while(l && r)
+    {
+        ll a=msbpos(l);
+        ll b=msbpos(r);
+        if(a!=b)
+        {
+            return ans;
+        }
+        ll val=1ll<<a;
+        ans+=val;
+        l-=val;
+        r-=val;
+    }
+    return ans;
+}
 void solve()
 {
     ll n,x;
     cin>>n>>x;
+    ll ans=-1;
+    if(n==x)
+    {
+        cout<<n<<"\n";
+        return;
+    }
+    if(x>n)
+    {
+        cout<<-1<<"\n";
+        return;
+    }
+    ll left=n,right=5e18;
+    ll mid=left+(right-left)/2;
+    while(left<=right)
+    {
+        mid=(left+right)/2;
+        ll val=band(n,mid);
+        if(val<=x)
+        {
+            if(val==x)
+            ans=mid;
+            right=mid-1;
+        }
+        else if(val>x)
+        {
+            left=mid+1;
+        }
+
+    }
+    cout<<ans<<"\n";
 }
 int main()
 {
